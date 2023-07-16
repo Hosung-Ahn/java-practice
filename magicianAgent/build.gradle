@@ -4,17 +4,11 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group = 'com.practice'
+group = 'com.java'
 version = '0.0.1-SNAPSHOT'
 
 java {
 	sourceCompatibility = '17'
-}
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
 }
 
 repositories {
@@ -23,15 +17,22 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
 	// byte buddy
 	implementation 'net.bytebuddy:byte-buddy:1.12.10'
-
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named('jar') {
+	manifest {
+		attributes(
+			'Implementation-Title': project.name,
+			'Implementation-Version': project.version,
+			'Premain-Class' : "com.java.magicianAgent.MagicianAgent",
+			'Can-Redefine-Classes' : true,
+			'Can-Retransform-Classes' : true)
+	}
 }
