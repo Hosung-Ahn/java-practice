@@ -1,5 +1,8 @@
 package com.practice.java.reflection;
 
+import com.practice.java.reflection.annotation.MyAnnotation;
+
+@MyAnnotation(name = "hosung", age = 26)
 public class Book {
     private String privateVal = "privateVal";
     private final String privateFinalVal = "privateFinalVal";
